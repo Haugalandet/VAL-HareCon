@@ -10,8 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RabbitMQConfig {
-
-
     private final String EXCHANGE_NAME = "subscriptionExchange";
     private final String QUEUE_NAME_RESULTS = "ResultsQueue";
     private final String QUEUE_NAME_META = "MetaQueue";
@@ -25,7 +23,6 @@ public class RabbitMQConfig {
     public Queue metaQueue() {
         return new Queue(QUEUE_NAME_META);
     }
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -35,12 +32,10 @@ public class RabbitMQConfig {
     public TopicExchange subscriptionExchange() {
         return new TopicExchange(EXCHANGE_NAME);
     }
-
     @Bean
     public Binding resultBinding(Queue resultsQueue, TopicExchange subscriptionExchange) {
         return BindingBuilder.bind(resultsQueue).to(subscriptionExchange).with(ROUTING_KEY_RESULTS);
     }
-
     @Bean
     public Binding metABinding(Queue metaQueue, TopicExchange subscriptionExchange) {
         return BindingBuilder.bind(metaQueue).to(subscriptionExchange).with(ROUTING_KEY_META);

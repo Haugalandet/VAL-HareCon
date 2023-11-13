@@ -21,7 +21,7 @@ public class ResultSubscriber {
     @RabbitListener(queues = QUEUE_NAME_RESULTS)
     public void sendToDweet(String message) {
         String dweetUrl = "https://dweet.io/dweet/for/" + message; //change to result's id
-        ResponseEntity<String> response = restTemplate.postForEntity(dweetUrl, message, String.class); //POST
+        ResponseEntity<String> response = restTemplate.postForEntity(dweetUrl, message, String.class); //POST to dweet
         if(response.getStatusCode().is2xxSuccessful()) {
             System.out.println("Dweet sent successfully: " + response.getBody());
         } else {

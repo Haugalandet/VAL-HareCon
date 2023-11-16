@@ -30,7 +30,7 @@ public class ResultSubscriber {
 
     @RabbitListener(queues = QUEUE_NAME_RESULTS)
     public void sendToDweet(String message) {
-        String dweetUrl = "https://dweet.io/dweet/for/fluttering-wash"; //change to result's id
+        String dweetUrl = "https://dweet.io/dweet/for/nicetry"; //change to result's id
 
 
         RestTemplate restTemplate = new RestTemplate();
@@ -41,8 +41,8 @@ public class ResultSubscriber {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
 // Prepare the request object with the headers and the JSON payload as a string
-        String jsonPayload = "{\"mouse_x\": 200,\n" +
-                "    \"mouse_y\": 200}"; // Replace with your actual JSON payload
+        String jsonPayload = "{\"mouse_x\": 500,\n" +
+                "    \"mouse_y\": 500}"; // Replace with your actual JSON payload
         HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
 
 // Send the request

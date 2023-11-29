@@ -29,23 +29,16 @@ public class ResultSubscriber {
     }
 
     @RabbitListener(queues = QUEUE_NAME_RESULTS)
-    public void sendToDweet(String message) {
-        String dweetUrl = "https://dweet.io/dweet/for/nicetry"; //change to result's id
-
-
+    public void sendToDweet(String resultJSON) {
+        String dweetUrl = "https://dweet.io/dweet/for/results"; //in a perfect world: change to result's id
         RestTemplate restTemplate = new RestTemplate();
 
-
-// Create a headers object and set the content type to application/json
         HttpHeaders headers = new HttpHeaders();
+
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-// Prepare the request object with the headers and the JSON payload as a string
-        String jsonPayload = "{\"mouse_x\": 500,\n" +
-                "    \"mouse_y\": 500}"; // Replace with your actual JSON payload
-        HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
-
-// Send the request
+        HttpEntity<String> entity = new HttpEntity<>(resultJSON, headers);
+    // Send the request
         ResponseEntity<String> response = restTemplate.postForEntity(dweetUrl, entity, String.class);//POST to dweet
         if(response.getStatusCode().is2xxSuccessful()) {
             System.out.println("Dweet sent successfully: " + response.getBody());
